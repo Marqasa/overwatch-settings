@@ -68,13 +68,13 @@
 							options: [
 								{ name: 'Low - 1x', value: 1 },
 								{ name: 'Medium - 2x', value: 2 },
-								{ name: 'High - 4x', value: 3 },
-								{ name: 'Ultra - 8x', value: 4 },
-								{ name: 'Epic - 16x', value: 5 },
+								{ name: 'High - 4x', value: 4 },
+								{ name: 'Ultra - 8x', value: 8 },
+								{ name: 'Epic - 16x', value: 16 },
 							],
-							value: settings['[Render.13]'].AnisotropicFiltering,
+							value: settings['[Render.13]'].MaxAnisotropy ?? 1,
 							section: '[Render.13]',
-							key: 'AnisotropicFiltering',
+							key: 'MaxAnisotropy',
 						},
 						{
 							name: 'Local Fog Detail',

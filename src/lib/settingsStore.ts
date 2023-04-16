@@ -33,7 +33,13 @@ function createSettingsStore() {
 				settings['[Render.13]'].FrameRateCap = 60;
 			} else if (setting === 'GFXPresetLevel') {
 				settings['[Render.13]'].TextureDetail = value >= 3 ? 3 : value;
-				settings['[Render.13]'].AnisotropicFiltering = value;
+				settings['[Render.13]'].AnisotropicFiltering = value >= 2 ? 1 : 0;
+				settings['[Render.13]'].MaxAnisotropy =
+					value === 5 ? 16 : value === 4 ? 8 : value === 3 ? 4 : value === 2 ? 2 : 1;
+				settings['[Render.13]'].MaxEffectsAnisotropy =
+					value === 5 ? 8 : value === 4 ? 4 : value === 3 ? 2 : 1;
+				settings['[Render.13]'].MaxExtraQualityAnisotropy =
+					value === 5 ? 16 : value === 4 ? 16 : value === 3 ? 8 : value === 2 ? 4 : 1;
 				settings['[Render.13]'].LocalFogDetail = value >= 4 ? 4 : value;
 				settings['[Render.13]'].SimpleDirectionalShadows = value >= 3 ? 3 : value;
 				settings['[Render.13]'].DirectionalShadowDetail = value >= 4 ? 4 : value;
@@ -44,6 +50,12 @@ function createSettingsStore() {
 				settings['[Render.13]'].RefractionDetail = value >= 3 ? 3 : value;
 				settings['[Render.13]'].SSAODetail = value >= 3 ? 3 : value;
 				settings['[Render.13]'].LocalReflections = value >= 3 ? 1 : 0;
+			} else if (setting === 'MaxAnisotropy') {
+				settings['[Render.13]'].AnisotropicFiltering = value >= 2 ? 1 : 0;
+				settings['[Render.13]'].MaxEffectsAnisotropy =
+					value === 16 ? 8 : value === 8 ? 4 : value === 4 ? 2 : 1;
+				settings['[Render.13]'].MaxExtraQualityAnisotropy =
+					value >= 8 ? 16 : value >= 4 ? 8 : value >= 2 ? 4 : 1;
 			}
 
 			invoke('write_settings', { settings: prepareSettings(settings) });

@@ -1,3 +1,5 @@
+![Header](https://repository-images.githubusercontent.com/628560683/a2763ce7-7786-437b-8060-a7f715403a2b)
+
 # Overwatch Settings
 
 This application is a simple GUI for the Overwatch configuration files on Apple Silicon. It allows you to change the settings of the game without having to edit the files manually.

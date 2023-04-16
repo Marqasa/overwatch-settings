@@ -31,7 +31,7 @@ export const SettingsSchema = z.object({
 		MinWorldScale: z.coerce.number().default(50),
 		ModelQuality: z.coerce.number().default(1),
 		RefractionDetail: z.coerce.number().default(1),
-		RenderBrightness: z.coerce.number().default(1),
+		RenderBrightness: z.coerce.number().default(0),
 		RenderContrast: z.coerce.number().default(1),
 		RenderGamma: z.coerce.number().default(2.2),
 		ShowFPSCounter: z.coerce.number().default(1),

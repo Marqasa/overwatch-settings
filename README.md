@@ -2,7 +2,7 @@
 
 # Overwatch Settings
 
-This application is a simple GUI for the Overwatch configuration files on Apple Silicon. It allows you to change the settings of the game without having to edit the files manually.
+A simple GUI that allows you to edit Overwatch 2 settings on Apple Silicon Macs.
 
 ## Installation
 

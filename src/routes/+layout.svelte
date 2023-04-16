@@ -11,10 +11,14 @@
 			<a href="/video/video" class="px-8 py-4" class:active={$page.url.pathname.includes('/video')}>
 				Video
 			</a>
-			<!-- <a href="/sound" class="px-8 py-4" class:active={$page.url.pathname.includes('/sound')}>
+			<a
+				href="/sound/general"
+				class="px-8 py-4"
+				class:active={$page.url.pathname.includes('/sound')}
+			>
 				Sound
 			</a>
-			<a href="/controls" class="px-8 py-4" class:active={$page.url.pathname.includes('/controls')}>
+			<!-- <a href="/controls" class="px-8 py-4" class:active={$page.url.pathname.includes('/controls')}>
 				Controls
 			</a>
 			<a href="/gameplay" class="px-8 py-4" class:active={$page.url.pathname.includes('/gameplay')}>

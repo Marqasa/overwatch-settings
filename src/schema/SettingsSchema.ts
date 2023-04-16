@@ -1,0 +1,75 @@
+import { z } from 'zod';
+
+export const SettingsSchema = z.object({
+	'[Cinematics.1]': z.object({
+		ShowIntro: z.coerce.number().default(0),
+	}),
+	'[Input.1]': z.object({
+		HighTickInput: z.coerce.number().default(1),
+	}),
+	'[Render.13]': z.object({
+		AADetail: z.coerce.number().default(0),
+		AnisotropicFiltering: z.coerce.number().default(1),
+		CpuForceSyncEnabled: z.coerce.number().default(1),
+		DirectionalShadowDetail: z.coerce.number().default(1),
+		DynamicRenderScale: z.coerce.number().default(0),
+		EffectsQuality: z.coerce.number().default(1),
+		FrameRateCap: z.coerce.number().default(600),
+		FullScreenHeight: z.coerce.number().default(1080),
+		FullScreenRefresh: z.coerce.number().default(120),
+		FullScreenWidth: z.coerce.number().default(1920),
+		FullscreenWindow: z.coerce.number().default(0),
+		FullscreenWindowEnabled: z.coerce.number().default(0),
+		GFXPresetLevel: z.coerce.number().default(1),
+		HighQualityUpsample: z.coerce.number().default(0),
+		HorizontalFOV: z.coerce.number().default(103),
+		ImageSharpening: z.coerce.number().default(0.25),
+		LightQuality: z.coerce.number().default(1),
+		LocalFogDetail: z.coerce.number().default(1),
+		LocalReflections: z.coerce.number().default(0),
+		MaxWorldScale: z.coerce.number().default(100),
+		MinWorldScale: z.coerce.number().default(50),
+		ModelQuality: z.coerce.number().default(1),
+		RefractionDetail: z.coerce.number().default(1),
+		RenderBrightness: z.coerce.number().default(1),
+		RenderContrast: z.coerce.number().default(1),
+		RenderGamma: z.coerce.number().default(2.2),
+		ShowFPSCounter: z.coerce.number().default(1),
+		ShowGPUTemp: z.coerce.number().default(0),
+		ShowIND: z.coerce.number().default(0),
+		ShowRTT: z.coerce.number().default(1),
+		ShowSystemClock: z.coerce.number().default(1),
+		ShowVRAMUsage: z.coerce.number().default(0),
+		SimpleDirectionalShadows: z.coerce.number().default(0),
+		SSAODetail: z.coerce.number().default(0),
+		TextureDetail: z.coerce.number().default(1),
+		TripleBufferingEnabled: z.coerce.number().default(0),
+		UseCustomFrameRates: z.coerce.number().default(1),
+		UseCustomWorldScale: z.coerce.number().default(1),
+		VerticalSyncEnabled: z.coerce.number().default(0),
+		WindowedFullscreen: z.coerce.number().default(0),
+		WindowedHeight: z.coerce.number().default(1080),
+		WindowedPosX: z.coerce.number().default(0),
+		WindowedPosY: z.coerce.number().default(0),
+		WindowedRefresh: z.coerce.number().default(120),
+		WindowedWidth: z.coerce.number().default(1920),
+		WindowMode: z.coerce.number().default(1),
+	}),
+	'[Sound.3]': z.object({
+		AudioMix: z.coerce.number().default(0),
+		MasterVolume: z.coerce.number().default(100),
+		MusicVolume: z.coerce.number().default(100),
+		SFXVolume: z.coerce.number().default(100),
+		VoiceVolume: z.coerce.number().default(100),
+	}),
+	'[Subtitles.1]': z.object({
+		Subtitles: z.coerce.number().default(1),
+	}),
+	'[TankMenuItems.1]': z.object({
+		FPSOverlay: z.coerce.number().default(0),
+	}),
+});
+
+export type Settings = z.infer<typeof SettingsSchema>;
+export type SettingsKey = keyof Settings;
+export type SectionKey<T extends SettingsKey> = keyof Settings[T];

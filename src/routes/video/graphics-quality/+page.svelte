@@ -26,7 +26,7 @@
 						{ name: 'Ultra', value: 4 },
 						{ name: 'Epic', value: 5 },
 					],
-					value: settings['[Render.13]'].GFXPresetLevel,
+					value: settings['[Render.13]']?.GFXPresetLevel ?? 2,
 					section: '[Render.13]',
 					key: 'GFXPresetLevel',
 					children: [
@@ -35,7 +35,7 @@
 							type: SettingTypes.Toggle,
 							off: 'Default',
 							on: 'AMD FSR 1.0',
-							value: settings['[Render.13]'].HighQualityUpsample,
+							value: settings['[Render.13]']?.HighQualityUpsample ?? 0,
 							section: '[Render.13]',
 							key: 'HighQualityUpsample',
 						},
@@ -45,10 +45,10 @@
 							min: 0,
 							max: 1,
 							decimalPlaces: 2,
-							value: settings['[Render.13]'].ImageSharpening,
+							value: settings['[Render.13]']?.ImageSharpening ?? 0.25,
 							section: '[Render.13]',
 							key: 'ImageSharpening',
-							hidden: settings['[Render.13]'].HighQualityUpsample === 0,
+							hidden: [0, undefined].includes(settings['[Render.13]']?.HighQualityUpsample),
 						},
 						{
 							name: 'Texture Quality',
@@ -58,7 +58,18 @@
 								{ name: 'Medium', value: 2 },
 								{ name: 'High', value: 3 },
 							],
-							value: settings['[Render.13]'].TextureDetail,
+							value:
+								settings['[Render.13]']?.TextureDetail !== undefined
+									? settings['[Render.13]'].TextureDetail
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 2
+									: 1,
 							section: '[Render.13]',
 							key: 'TextureDetail',
 						},
@@ -72,7 +83,18 @@
 								{ name: 'Ultra - 8x', value: 8 },
 								{ name: 'Epic - 16x', value: 16 },
 							],
-							value: settings['[Render.13]'].MaxAnisotropy ?? 1,
+							value:
+								settings['[Render.13]']?.MaxAnisotropy !== undefined
+									? settings['[Render.13]'].MaxAnisotropy
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 16
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 8
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 2
+									: 1,
 							section: '[Render.13]',
 							key: 'MaxAnisotropy',
 						},
@@ -85,7 +107,18 @@
 								{ name: 'High', value: 3 },
 								{ name: 'Ultra', value: 4 },
 							],
-							value: settings['[Render.13]'].LocalFogDetail,
+							value:
+								settings['[Render.13]']?.LocalFogDetail !== undefined
+									? settings['[Render.13]'].LocalFogDetail
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 2
+									: 1,
 							section: '[Render.13]',
 							key: 'LocalFogDetail',
 						},
@@ -98,7 +131,18 @@
 								{ name: 'Medium', value: 2 },
 								{ name: 'High', value: 3 },
 							],
-							value: settings['[Render.13]'].SimpleDirectionalShadows,
+							value:
+								settings['[Render.13]']?.SimpleDirectionalShadows !== undefined
+									? settings['[Render.13]'].SimpleDirectionalShadows
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 2
+									: 1,
 							section: '[Render.13]',
 							key: 'SimpleDirectionalShadows',
 						},
@@ -112,7 +156,18 @@
 								{ name: 'High', value: 3 },
 								{ name: 'Ultra', value: 4 },
 							],
-							value: settings['[Render.13]'].DirectionalShadowDetail,
+							value:
+								settings['[Render.13]']?.DirectionalShadowDetail !== undefined
+									? settings['[Render.13]'].DirectionalShadowDetail
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 2
+									: 1,
 							section: '[Render.13]',
 							key: 'DirectionalShadowDetail',
 						},
@@ -125,7 +180,18 @@
 								{ name: 'High', value: 3 },
 								{ name: 'Ultra', value: 4 },
 							],
-							value: settings['[Render.13]'].ModelQuality,
+							value:
+								settings['[Render.13]']?.ModelQuality !== undefined
+									? settings['[Render.13]'].ModelQuality
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 2
+									: 1,
 							section: '[Render.13]',
 							key: 'ModelQuality',
 						},
@@ -138,7 +204,18 @@
 								{ name: 'High', value: 3 },
 								{ name: 'Ultra', value: 4 },
 							],
-							value: settings['[Render.13]'].EffectsQuality,
+							value:
+								settings['[Render.13]']?.EffectsQuality !== undefined
+									? settings['[Render.13]'].EffectsQuality
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 2
+									: 1,
 							section: '[Render.13]',
 							key: 'EffectsQuality',
 						},
@@ -151,7 +228,18 @@
 								{ name: 'High', value: 3 },
 								{ name: 'Ultra', value: 4 },
 							],
-							value: settings['[Render.13]'].LightQuality,
+							value:
+								settings['[Render.13]']?.LightQuality !== undefined
+									? settings['[Render.13]'].LightQuality
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 2
+									: 1,
 							section: '[Render.13]',
 							key: 'LightQuality',
 						},
@@ -165,7 +253,18 @@
 								{ name: 'High - SMAA Medium', value: 3 },
 								{ name: 'Ultra - SMAA High', value: 4 },
 							],
-							value: settings['[Render.13]'].AADetail,
+							value:
+								settings['[Render.13]']?.AADetail !== undefined
+									? settings['[Render.13]'].AADetail
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 2
+									: 1,
 							section: '[Render.13]',
 							key: 'AADetail',
 						},
@@ -177,7 +276,18 @@
 								{ name: 'Medium', value: 2 },
 								{ name: 'High', value: 3 },
 							],
-							value: settings['[Render.13]'].RefractionDetail,
+							value:
+								settings['[Render.13]']?.RefractionDetail !== undefined
+									? settings['[Render.13]'].RefractionDetail
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 2
+									: 1,
 							section: '[Render.13]',
 							key: 'RefractionDetail',
 						},
@@ -203,7 +313,18 @@
 								{ name: 'Medium', value: 2 },
 								{ name: 'High', value: 3 },
 							],
-							value: settings['[Render.13]'].SSAODetail,
+							value:
+								settings['[Render.13]']?.SSAODetail !== undefined
+									? settings['[Render.13]'].SSAODetail
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 2
+									: 1,
 							section: '[Render.13]',
 							key: 'SSAODetail',
 						},
@@ -212,7 +333,18 @@
 							type: SettingTypes.Toggle,
 							on: 'On',
 							off: 'Off',
-							value: settings['[Render.13]'].LocalReflections,
+							value:
+								settings['[Render.13]']?.LocalReflections !== undefined
+									? settings['[Render.13]'].LocalReflections
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 1
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 1
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 1
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 1
+									: 0,
 							section: '[Render.13]',
 							key: 'LocalReflections',
 						},

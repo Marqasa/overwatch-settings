@@ -73,7 +73,7 @@
 					type: SettingTypes.Toggle,
 					on: 'On',
 					off: 'Off',
-					value: settings['[Render.13]']?.DynamicRenderScale ?? 0,
+					value: settings['[Render.13]']?.DynamicRenderScale ?? 1,
 					section: '[Render.13]',
 					key: 'DynamicRenderScale',
 				},

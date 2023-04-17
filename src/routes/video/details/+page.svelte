@@ -22,18 +22,19 @@
 					on: 'On',
 					off: 'Off',
 					value:
-						settings['[Render.13]'].ShowFPSCounter ||
-						settings['[Render.13]'].ShowVRAMUsage ||
-						settings['[Render.13]'].ShowRTT ||
-						settings['[Render.13]'].ShowIND ||
-						settings['[Render.13]'].ShowGPUTemp,
+						settings['[Render.13]']?.ShowFPSCounter ||
+						settings['[Render.13]']?.ShowVRAMUsage ||
+						settings['[Render.13]']?.ShowRTT ||
+						settings['[Render.13]']?.ShowIND ||
+						settings['[Render.13]']?.ShowGPUTemp ||
+						0,
 					children: [
 						{
 							name: 'Show Framerate',
 							type: SettingTypes.Toggle,
 							on: 'On',
 							off: 'Off',
-							value: settings['[Render.13]'].ShowFPSCounter,
+							value: settings['[Render.13]']?.ShowFPSCounter ?? 0,
 							section: '[Render.13]',
 							key: 'ShowFPSCounter',
 						},
@@ -42,7 +43,7 @@
 							type: SettingTypes.Toggle,
 							on: 'On',
 							off: 'Off',
-							value: settings['[Render.13]'].ShowGPUTemp,
+							value: settings['[Render.13]']?.ShowGPUTemp ?? 0,
 							section: '[Render.13]',
 							key: 'ShowGPUTemp',
 						},
@@ -51,7 +52,7 @@
 							type: SettingTypes.Toggle,
 							on: 'On',
 							off: 'Off',
-							value: settings['[Render.13]'].ShowVRAMUsage,
+							value: settings['[Render.13]']?.ShowVRAMUsage ?? 0,
 							section: '[Render.13]',
 							key: 'ShowVRAMUsage',
 						},
@@ -60,7 +61,7 @@
 							type: SettingTypes.Toggle,
 							on: 'On',
 							off: 'Off',
-							value: settings['[Render.13]'].ShowRTT,
+							value: settings['[Render.13]']?.ShowRTT ?? 0,
 							section: '[Render.13]',
 							key: 'ShowRTT',
 						},
@@ -69,7 +70,7 @@
 							type: SettingTypes.Toggle,
 							on: 'On',
 							off: 'Off',
-							value: settings['[Render.13]'].ShowIND,
+							value: settings['[Render.13]']?.ShowIND ?? 0,
 							section: '[Render.13]',
 							key: 'ShowIND',
 						},
@@ -85,7 +86,7 @@
 					type: SettingTypes.Toggle,
 					on: 'On',
 					off: 'Off',
-					value: settings['[Render.13]'].ShowSystemClock,
+					value: settings['[Render.13]']?.ShowSystemClock ?? 0,
 					section: '[Render.13]',
 					key: 'ShowSystemClock',
 				},
@@ -102,14 +103,42 @@
 			);
 		} else if (event.detail.setting.name === 'Display Performance Stats') {
 			if (event.detail.value === 0) {
-				settingsStore.updateSetting('[Render.13]', 'ShowFPSCounter', 0);
-				settingsStore.updateSetting('[Render.13]', 'ShowVRAMUsage', 0);
-				settingsStore.updateSetting('[Render.13]', 'ShowRTT', 0);
-				settingsStore.updateSetting('[Render.13]', 'ShowIND', 0);
-				settingsStore.updateSetting('[Render.13]', 'ShowGPUTemp', 0);
+				settingsStore.updateSetting(
+					'[Render.13]',
+					'ShowFPSCounter' as keyof (typeof settings)['[Render.13]'],
+					0
+				);
+				settingsStore.updateSetting(
+					'[Render.13]',
+					'ShowVRAMUsage' as keyof (typeof settings)['[Render.13]'],
+					0
+				);
+				settingsStore.updateSetting(
+					'[Render.13]',
+					'ShowRTT' as keyof (typeof settings)['[Render.13]'],
+					0
+				);
+				settingsStore.updateSetting(
+					'[Render.13]',
+					'ShowIND' as keyof (typeof settings)['[Render.13]'],
+					0
+				);
+				settingsStore.updateSetting(
+					'[Render.13]',
+					'ShowGPUTemp' as keyof (typeof settings)['[Render.13]'],
+					0
+				);
 			} else {
-				settingsStore.updateSetting('[Render.13]', 'ShowFPSCounter', 1);
-				settingsStore.updateSetting('[Render.13]', 'ShowRTT', 1);
+				settingsStore.updateSetting(
+					'[Render.13]',
+					'ShowFPSCounter' as keyof (typeof settings)['[Render.13]'],
+					1
+				);
+				settingsStore.updateSetting(
+					'[Render.13]',
+					'ShowRTT' as keyof (typeof settings)['[Render.13]'],
+					1
+				);
 			}
 		}
 	}

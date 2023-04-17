@@ -327,6 +327,7 @@
 									: 1,
 							section: '[Render.13]',
 							key: 'SSAODetail',
+							disabled: true,
 						},
 						{
 							name: 'Local Reflections',

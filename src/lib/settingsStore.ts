@@ -57,7 +57,6 @@ function createSettingsStore() {
 				newSettings['[Render.13]'].LightQuality = value >= 4 ? 4 : value;
 				newSettings['[Render.13]'].AADetail = value >= 4 ? 4 : value;
 				newSettings['[Render.13]'].RefractionDetail = value >= 3 ? 3 : value;
-				newSettings['[Render.13]'].SSAODetail = value >= 3 ? 3 : value;
 				newSettings['[Render.13]'].LocalReflections = value >= 3 ? 1 : 0;
 			} else if (setting === 'MaxAnisotropy') {
 				newSettings['[Render.13]'].AnisotropicFiltering = value >= 2 ? 1 : 0;

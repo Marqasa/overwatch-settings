@@ -12,6 +12,10 @@ export function prepareSettings(settings: Settings): string {
 
 		const sectionSettings = settings[section as keyof Settings];
 
+		if (!sectionSettings) {
+			continue;
+		}
+
 		for (const [key, value] of Object.entries(sectionSettings)) {
 			output += `${key} = "${value}"\n`;
 		}

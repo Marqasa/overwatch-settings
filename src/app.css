@@ -4,6 +4,7 @@
 
 * {
 	user-select: none;
+	cursor: url(assets/pointer.cur), pointer;
 }
 html,
 body {

@@ -20,11 +20,15 @@
 			</a>
 			<!-- <a href="/controls" class="px-8 py-4" class:active={$page.url.pathname.includes('/controls')}>
 				Controls
-			</a>
-			<a href="/gameplay" class="px-8 py-4" class:active={$page.url.pathname.includes('/gameplay')}>
+			</a> -->
+			<a
+				href="/gameplay/general"
+				class="px-8 py-4"
+				class:active={$page.url.pathname.includes('/gameplay')}
+			>
 				Gameplay
 			</a>
-			<a href="/social" class="px-8 py-4" class:active={$page.url.pathname.includes('/social')}
+			<!-- <a href="/social" class="px-8 py-4" class:active={$page.url.pathname.includes('/social')}
 				>Social</a
 			>
 			<a

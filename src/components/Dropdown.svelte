@@ -44,7 +44,7 @@
 
 <div class="bg-white text-black px-6 py-2 flex-1 max-w-[450px] relative" bind:this={dropdown}>
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div class="flex justify-between cursor-pointer items-center" on:click={onLabelClick}>
+	<div class="flex justify-between items-center" on:click={onLabelClick}>
 		<span>{selectedOption.name}</span>
 
 		<Chevron width={16} height={16} />
@@ -56,7 +56,7 @@
 				{#each setting.options as option}
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<li
-						class="option p-2 cursor-pointer"
+						class="option p-2"
 						class:selected={selectedOption.name === option.name}
 						on:click={() => onOptionClick(option)}
 					>

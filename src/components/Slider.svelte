@@ -22,7 +22,7 @@
 		min={setting.min}
 		max={setting.max}
 		value={setting.value}
-		class="flex-1 mx-2 cursor-pointer"
+		class="flex-1 mx-2"
 		on:input={onChange}
 	/>
 </div>

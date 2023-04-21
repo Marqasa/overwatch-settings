@@ -19,7 +19,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-	class="flex-1 bg-white text-black max-w-[450px] flex justify-center items-center cursor-pointer p-2"
+	class="flex-1 bg-white text-black max-w-[450px] flex justify-center items-center p-2"
 	on:click={onChange}
 >
 	<Chevron width={16} height={16} rotation={90} />

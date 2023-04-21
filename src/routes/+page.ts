@@ -4,6 +4,8 @@ import { parseSettings } from '$lib/parseSettings';
 import { goto } from '$app/navigation';
 
 export const load = (async () => {
+	document.ondragstart = () => false;
+
 	invoke<string>('get_settings').then((message) => {
 		parseSettings(message);
 		goto('/video/video');

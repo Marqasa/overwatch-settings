@@ -41,6 +41,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Get version
+        run: echo "APP_VERSION=$(node -p "require('./src-tauri/tauri.conf.json').package.version")" >> $GITHUB_ENV
+
       - name: Build app
         uses: tauri-apps/tauri-action@dev
         env:
@@ -48,9 +51,9 @@ jobs:
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
         with:
-          tagName: __VERSION__
-          releaseName: Overwatch Settings __VERSION__
-          releaseBody: https://github.com/Marqasa/overwatch-settings/releases/latest
+          tagName: ${{ env.APP_VERSION }}
+          releaseName: Overwatch Settings ${{ env.APP_VERSION }}
+          releaseBody: https://github.com/Marqasa/overwatch-settings/releases/tag/${{ env.APP_VERSION }}
           releaseDraft: true
           args: --target aarch64-apple-darwin
           includeUpdaterJson: true

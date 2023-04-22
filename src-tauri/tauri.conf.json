@@ -53,7 +53,7 @@
 		"updater": {
 			"active": true,
 			"endpoints": [
-				"https://gist.githubusercontent.com/thinksamwp/fe8f57347be38fb7b137d67600578765/raw/overwatch-settings-update.json"
+				"https://github.com/Marqasa/overwatch-settings/releases/latest/download/latest.json"
 			],
 			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEFFREJBNUI0ODQyMEYzQgpSV1E3RDBKSVc3cnRDckh5dzZGMHhTWW9NV01NWnlTTENuRlVRWEZDNjVqSktyUnpleHM3YTVBYgo="
 		},

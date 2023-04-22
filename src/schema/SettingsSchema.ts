@@ -65,6 +65,7 @@ export const SettingsSchema = z.object({
 			SoundQuality: z.coerce.number().optional(),
 			SSAODetail: z.coerce.number().optional(),
 			SSLRDetailLevel: z.coerce.number().optional(),
+			SSQuality: z.coerce.number().optional(),
 			TextureDetail: z.coerce.number().optional(),
 			TripleBufferingEnabled: z.coerce.number().optional(),
 			UseCustomFrameRates: z.coerce.number().optional(),

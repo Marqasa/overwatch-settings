@@ -295,14 +295,26 @@
 							name: 'Screenshot Quality',
 							type: SettingTypes.Dropdown,
 							options: [
-								{ name: '1x Resolution', value: 1 },
-								{ name: '3x Resolution', value: 2 },
-								{ name: '5x Resolution', value: 3 },
-								{ name: '7x Resolution', value: 4 },
-								{ name: '9x Resolution', value: 5 },
+								{ name: '1x Resolution', value: 0 },
+								{ name: '3x Resolution', value: 1 },
+								{ name: '5x Resolution', value: 2 },
+								{ name: '7x Resolution', value: 3 },
+								{ name: '9x Resolution', value: 4 },
 							],
-							value: 1,
-							disabled: true,
+							value:
+								settings['[Render.13]']?.SSQuality !== undefined
+									? settings['[Render.13]'].SSQuality
+									: settings['[Render.13]']?.GFXPresetLevel === 5
+									? 4
+									: settings['[Render.13]']?.GFXPresetLevel === 4
+									? 3
+									: settings['[Render.13]']?.GFXPresetLevel === 3
+									? 2
+									: settings['[Render.13]']?.GFXPresetLevel === 2
+									? 1
+									: 0,
+							section: '[Render.13]',
+							key: 'SSQuality',
 						},
 						{
 							name: 'Ambient Occlusion',

@@ -7,37 +7,37 @@
 	class="flex flex-col gap-8 bg-slate-400 min-h-full p-16 text-white uppercase text-3xl font-sans font-bold"
 >
 	<div>
-		<nav class="p-2 bg-[#303b50] flex max-w-min rounded">
+		<nav class="p-2 bg-[#303b50] flex max-w-min rounded gap-2">
 			<a
 				href="/video/video"
-				class="tab px-8 py-4"
+				class="tab rounded px-8 py-4"
 				class:active={$page.url.pathname.includes('/video')}
 			>
 				Video
 			</a>
 			<a
 				href="/sound/general"
-				class="tab px-8 py-4"
+				class="tab rounded px-8 py-4"
 				class:active={$page.url.pathname.includes('/sound')}
 			>
 				Sound
 			</a>
-			<!-- <a href="/controls" class="tab px-8 py-4" class:active={$page.url.pathname.includes('/controls')}>
+			<!-- <a href="/controls" class="tab rounded px-8 py-4" class:active={$page.url.pathname.includes('/controls')}>
 				Controls
 			</a> -->
 			<a
 				href="/gameplay/general"
-				class="tab px-8 py-4"
+				class="tab rounded px-8 py-4"
 				class:active={$page.url.pathname.includes('/gameplay')}
 			>
 				Gameplay
 			</a>
-			<!-- <a href="/social" class="tab px-8 py-4" class:active={$page.url.pathname.includes('/social')}
+			<!-- <a href="/social" class="tab rounded px-8 py-4" class:active={$page.url.pathname.includes('/social')}
 				>Social</a
 			>
 			<a
 				href="/accessibility"
-				class="tab px-8 py-4"
+				class="tab rounded px-8 py-4"
 				class:active={$page.url.pathname.includes('/accessibility')}
 			>
 				Accessibility

@@ -8,32 +8,36 @@
 >
 	<div>
 		<nav class="p-2 bg-[#303b50] flex max-w-min rounded">
-			<a href="/video/video" class="px-8 py-4" class:active={$page.url.pathname.includes('/video')}>
+			<a
+				href="/video/video"
+				class="tab px-8 py-4"
+				class:active={$page.url.pathname.includes('/video')}
+			>
 				Video
 			</a>
 			<a
 				href="/sound/general"
-				class="px-8 py-4"
+				class="tab px-8 py-4"
 				class:active={$page.url.pathname.includes('/sound')}
 			>
 				Sound
 			</a>
-			<!-- <a href="/controls" class="px-8 py-4" class:active={$page.url.pathname.includes('/controls')}>
+			<!-- <a href="/controls" class="tab px-8 py-4" class:active={$page.url.pathname.includes('/controls')}>
 				Controls
 			</a> -->
 			<a
 				href="/gameplay/general"
-				class="px-8 py-4"
+				class="tab px-8 py-4"
 				class:active={$page.url.pathname.includes('/gameplay')}
 			>
 				Gameplay
 			</a>
-			<!-- <a href="/social" class="px-8 py-4" class:active={$page.url.pathname.includes('/social')}
+			<!-- <a href="/social" class="tab px-8 py-4" class:active={$page.url.pathname.includes('/social')}
 				>Social</a
 			>
 			<a
 				href="/accessibility"
-				class="px-8 py-4"
+				class="tab px-8 py-4"
 				class:active={$page.url.pathname.includes('/accessibility')}
 			>
 				Accessibility
@@ -47,7 +51,15 @@
 </main>
 
 <style>
-	.active {
+	.tab {
+		border: 2px solid transparent;
+	}
+	.tab:hover {
+		background-color: #35717c;
+		border: 2px solid #01f4f3;
+	}
+	.tab.active {
+		border: 2px solid #01f4f3;
 		background-color: #01f4f3;
 		color: black;
 	}

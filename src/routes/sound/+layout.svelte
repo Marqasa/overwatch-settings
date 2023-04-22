@@ -3,10 +3,10 @@
 </script>
 
 <section class="flex gap-14">
-	<nav class="flex flex-col gap-1 min-w-[18%]">
+	<nav class="flex flex-col gap-2 min-w-[18%]">
 		<a
 			href="/sound/general"
-			class="bg-[#303b50] p-4 rounded"
+			class="bg-[#303b50] p-4 rounded button"
 			class:active={$page.url.pathname.includes('/sound/general')}>General</a
 		>
 	</nav>
@@ -21,7 +21,15 @@
 		display: flex;
 		flex-direction: column;
 	}
-	.active {
+	.button {
+		border: 2px solid transparent;
+	}
+	.button:hover {
+		background-color: #35717c;
+		border: 2px solid #01f4f3;
+	}
+	.button.active {
+		border: 2px solid #01f4f3;
 		background-color: #01f4f3;
 		color: black;
 	}

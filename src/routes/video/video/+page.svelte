@@ -108,7 +108,7 @@
 					min: 50,
 					max: 200,
 					decimalPlaces: 0,
-					value: settings['[Render.13]']?.MinWorldScale ?? 50,
+					value: settings['[Render.13]']?.MinWorldScale ?? 75,
 					section: '[Render.13]',
 					key: 'MinWorldScale',
 					hidden:

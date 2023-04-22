@@ -1,17 +1,63 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
+	import type { SettingGroup } from '$types/SettingGroup';
 	import { settingsStore } from '$lib/settingsStore';
 	import { SettingTypes } from '$types/SettingType';
 	import SettingsPage from '$components/SettingsPage.svelte';
-	import type { SettingGroup } from '$types/SettingGroup';
-	import type { Settings } from '../../../schema/SettingsSchema';
 
-	let settings: Settings;
+	// Default to an empty object
+	$: Render13 = $settingsStore['[Render.13]'] ?? {};
 
-	const unsubscribe = settingsStore.subscribe((value) => (settings = value));
+	// Default to medium
+	$: ({ GFXPresetLevel = 2 } = Render13);
 
-	onDestroy(unsubscribe);
+	// Desctructure settings and assign defaults
+	$: ({
+		AADetail = GFXPresetLevel > 3 ? 3 : GFXPresetLevel === 3 ? 2 : 1,
+		DirectionalShadowDetail = GFXPresetLevel === 5
+			? 4
+			: GFXPresetLevel === 4
+			? 3
+			: GFXPresetLevel === 3
+			? 2
+			: 1,
+		EffectsQuality = GFXPresetLevel === 5
+			? 4
+			: GFXPresetLevel === 4
+			? 3
+			: GFXPresetLevel === 3
+			? 2
+			: 1,
+		HighQualityUpsample = GFXPresetLevel > 3 ? 1 : 0,
+		ImageSharpening = 0.25,
+		LightQuality = GFXPresetLevel > 3 ? 3 : GFXPresetLevel === 3 ? 2 : GFXPresetLevel === 2 ? 1 : 0,
+		LocalFogDetail = GFXPresetLevel === 5
+			? 4
+			: GFXPresetLevel === 4
+			? 3
+			: GFXPresetLevel === 3
+			? 3
+			: GFXPresetLevel === 2
+			? 2
+			: 1,
+		LocalReflections = GFXPresetLevel > 1 ? 1 : 0,
+		MaxAnisotropy = GFXPresetLevel === 5
+			? 16
+			: GFXPresetLevel === 4
+			? 8
+			: GFXPresetLevel === 3
+			? 4
+			: GFXPresetLevel === 2
+			? 2
+			: 1,
+		ModelQuality = GFXPresetLevel === 5 ? 4 : GFXPresetLevel === 4 ? 3 : GFXPresetLevel > 1 ? 2 : 1,
+		RefractionDetail = GFXPresetLevel > 2 ? 2 : GFXPresetLevel === 2 ? 1 : 0,
+		SimpleDirectionalShadows = GFXPresetLevel > 1 ? 0 : 1,
+		SSAODetail = GFXPresetLevel > 2 ? GFXPresetLevel - 2 : GFXPresetLevel - 1,
+		SSQuality = 0,
+		TextureDetail = 3,
+	} = Render13);
 
+	// Create the settings groups
 	$: settingGroups = [
 		{
 			name: 'Advanced',
@@ -26,7 +72,7 @@
 						{ name: 'Ultra', value: 4 },
 						{ name: 'Epic', value: 5 },
 					],
-					value: settings['[Render.13]']?.GFXPresetLevel ?? 2,
+					value: GFXPresetLevel,
 					section: '[Render.13]',
 					key: 'GFXPresetLevel',
 					children: [
@@ -35,14 +81,7 @@
 							type: SettingTypes.Toggle,
 							off: 'Default',
 							on: 'AMD FSR 1.0',
-							value:
-								settings['[Render.13]']?.HighQualityUpsample !== undefined
-									? settings['[Render.13]'].HighQualityUpsample
-									: settings['[Render.13]']?.GFXPresetLevel === 5
-									? 1
-									: settings['[Render.13]']?.GFXPresetLevel === 4
-									? 1
-									: 0,
+							value: HighQualityUpsample,
 							section: '[Render.13]',
 							key: 'HighQualityUpsample',
 						},
@@ -52,10 +91,10 @@
 							min: 0,
 							max: 1,
 							decimalPlaces: 2,
-							value: settings['[Render.13]']?.ImageSharpening ?? 0.25,
+							value: ImageSharpening,
 							section: '[Render.13]',
 							key: 'ImageSharpening',
-							hidden: [0, undefined].includes(settings['[Render.13]']?.HighQualityUpsample),
+							hidden: HighQualityUpsample === 0,
 						},
 						{
 							name: 'Texture Quality',
@@ -65,7 +104,7 @@
 								{ name: 'Medium', value: 2 },
 								{ name: 'High', value: 3 },
 							],
-							value: settings['[Render.13]']?.TextureDetail ?? 3,
+							value: TextureDetail,
 							section: '[Render.13]',
 							key: 'TextureDetail',
 						},
@@ -79,20 +118,7 @@
 								{ name: 'Ultra - 8x', value: 8 },
 								{ name: 'Epic - 16x', value: 16 },
 							],
-							value:
-								settings['[Render.13]']?.MaxAnisotropy !== undefined
-									? settings['[Render.13]'].MaxAnisotropy
-									: settings['[Render.13]']?.GFXPresetLevel === 5
-									? 16
-									: settings['[Render.13]']?.GFXPresetLevel === 4
-									? 8
-									: settings['[Render.13]']?.GFXPresetLevel === 3
-									? 4
-									: settings['[Render.13]']?.GFXPresetLevel === 2
-									? 2
-									: settings['[Render.13]']?.GFXPresetLevel === 1
-									? 1
-									: 2,
+							value: MaxAnisotropy,
 							section: '[Render.13]',
 							key: 'MaxAnisotropy',
 						},
@@ -105,20 +131,7 @@
 								{ name: 'High', value: 3 },
 								{ name: 'Ultra', value: 4 },
 							],
-							value:
-								settings['[Render.13]']?.LocalFogDetail !== undefined
-									? settings['[Render.13]'].LocalFogDetail
-									: settings['[Render.13]']?.GFXPresetLevel === 5
-									? 4
-									: settings['[Render.13]']?.GFXPresetLevel === 4
-									? 3
-									: settings['[Render.13]']?.GFXPresetLevel === 3
-									? 3
-									: settings['[Render.13]']?.GFXPresetLevel === 2
-									? 2
-									: settings['[Render.13]']?.GFXPresetLevel === 1
-									? 1
-									: 2,
+							value: LocalFogDetail,
 							section: '[Render.13]',
 							key: 'LocalFogDetail',
 						},
@@ -131,20 +144,7 @@
 								{ name: 'Medium', value: 2 },
 								{ name: 'High', value: 3 },
 							],
-							value:
-								settings['[Render.13]']?.SimpleDirectionalShadows !== undefined
-									? settings['[Render.13]'].SimpleDirectionalShadows
-									: settings['[Render.13]']?.GFXPresetLevel === 5
-									? 0
-									: settings['[Render.13]']?.GFXPresetLevel === 4
-									? 0
-									: settings['[Render.13]']?.GFXPresetLevel === 3
-									? 0
-									: settings['[Render.13]']?.GFXPresetLevel === 2
-									? 0
-									: settings['[Render.13]']?.GFXPresetLevel === 1
-									? 1
-									: 0,
+							value: SimpleDirectionalShadows,
 							section: '[Render.13]',
 							key: 'SimpleDirectionalShadows',
 						},
@@ -158,16 +158,7 @@
 								{ name: 'High', value: 3 },
 								{ name: 'Ultra', value: 4 },
 							],
-							value:
-								settings['[Render.13]']?.DirectionalShadowDetail !== undefined
-									? settings['[Render.13]'].DirectionalShadowDetail
-									: settings['[Render.13]']?.GFXPresetLevel === 5
-									? 4
-									: settings['[Render.13]']?.GFXPresetLevel === 4
-									? 3
-									: settings['[Render.13]']?.GFXPresetLevel === 3
-									? 2
-									: 1,
+							value: DirectionalShadowDetail,
 							section: '[Render.13]',
 							key: 'DirectionalShadowDetail',
 						},
@@ -180,20 +171,7 @@
 								{ name: 'High', value: 3 },
 								{ name: 'Ultra', value: 4 },
 							],
-							value:
-								settings['[Render.13]']?.ModelQuality !== undefined
-									? settings['[Render.13]'].ModelQuality
-									: settings['[Render.13]']?.GFXPresetLevel === 5
-									? 4
-									: settings['[Render.13]']?.GFXPresetLevel === 4
-									? 3
-									: settings['[Render.13]']?.GFXPresetLevel === 3
-									? 2
-									: settings['[Render.13]']?.GFXPresetLevel === 2
-									? 2
-									: settings['[Render.13]']?.GFXPresetLevel === 1
-									? 1
-									: 2,
+							value: ModelQuality,
 							section: '[Render.13]',
 							key: 'ModelQuality',
 						},
@@ -206,16 +184,7 @@
 								{ name: 'High', value: 3 },
 								{ name: 'Ultra', value: 4 },
 							],
-							value:
-								settings['[Render.13]']?.EffectsQuality !== undefined
-									? settings['[Render.13]'].EffectsQuality
-									: settings['[Render.13]']?.GFXPresetLevel === 5
-									? 4
-									: settings['[Render.13]']?.GFXPresetLevel === 4
-									? 3
-									: settings['[Render.13]']?.GFXPresetLevel === 3
-									? 2
-									: 1,
+							value: EffectsQuality,
 							section: '[Render.13]',
 							key: 'EffectsQuality',
 						},
@@ -228,18 +197,7 @@
 								{ name: 'High', value: 3 },
 								{ name: 'Ultra', value: 4 },
 							],
-							value:
-								settings['[Render.13]']?.LightQuality !== undefined
-									? settings['[Render.13]'].LightQuality
-									: settings['[Render.13]']?.GFXPresetLevel === 5
-									? 3
-									: settings['[Render.13]']?.GFXPresetLevel === 4
-									? 3
-									: settings['[Render.13]']?.GFXPresetLevel === 3
-									? 2
-									: settings['[Render.13]']?.GFXPresetLevel === 2
-									? 1
-									: 0,
+							value: LightQuality,
 							section: '[Render.13]',
 							key: 'LightQuality',
 						},
@@ -253,16 +211,7 @@
 								{ name: 'High - SMAA Medium', value: 3 },
 								{ name: 'Ultra - SMAA High', value: 4 },
 							],
-							value:
-								settings['[Render.13]']?.AADetail !== undefined
-									? settings['[Render.13]'].AADetail
-									: settings['[Render.13]']?.GFXPresetLevel === 5
-									? 3
-									: settings['[Render.13]']?.GFXPresetLevel === 4
-									? 3
-									: settings['[Render.13]']?.GFXPresetLevel === 3
-									? 2
-									: 1,
+							value: AADetail,
 							section: '[Render.13]',
 							key: 'AADetail',
 						},
@@ -274,20 +223,7 @@
 								{ name: 'Medium', value: 2 },
 								{ name: 'High', value: 3 },
 							],
-							value:
-								settings['[Render.13]']?.RefractionDetail !== undefined
-									? settings['[Render.13]'].RefractionDetail
-									: settings['[Render.13]']?.GFXPresetLevel === 5
-									? 2
-									: settings['[Render.13]']?.GFXPresetLevel === 4
-									? 2
-									: settings['[Render.13]']?.GFXPresetLevel === 3
-									? 2
-									: settings['[Render.13]']?.GFXPresetLevel === 2
-									? 1
-									: settings['[Render.13]']?.GFXPresetLevel === 1
-									? 0
-									: 1,
+							value: RefractionDetail,
 							section: '[Render.13]',
 							key: 'RefractionDetail',
 						},
@@ -301,7 +237,7 @@
 								{ name: '7x Resolution', value: 3 },
 								{ name: '9x Resolution', value: 4 },
 							],
-							value: settings['[Render.13]']?.SSQuality ?? 0,
+							value: SSQuality,
 							section: '[Render.13]',
 							key: 'SSQuality',
 						},
@@ -314,20 +250,7 @@
 								{ name: 'Medium', value: 2 },
 								{ name: 'High', value: 3 },
 							],
-							value:
-								settings['[Render.13]']?.SSAODetail !== undefined
-									? settings['[Render.13]'].SSAODetail
-									: settings['[Render.13]']?.GFXPresetLevel === 5
-									? 3
-									: settings['[Render.13]']?.GFXPresetLevel === 4
-									? 2
-									: settings['[Render.13]']?.GFXPresetLevel === 3
-									? 1
-									: settings['[Render.13]']?.GFXPresetLevel === 2
-									? 1
-									: settings['[Render.13]']?.GFXPresetLevel === 1
-									? 0
-									: 1,
+							value: SSAODetail,
 							section: '[Render.13]',
 							key: 'SSAODetail',
 						},
@@ -336,18 +259,7 @@
 							type: SettingTypes.Toggle,
 							on: 'On',
 							off: 'Off',
-							value:
-								settings['[Render.13]']?.LocalReflections !== undefined
-									? settings['[Render.13]'].LocalReflections
-									: settings['[Render.13]']?.GFXPresetLevel === 5
-									? 1
-									: settings['[Render.13]']?.GFXPresetLevel === 4
-									? 1
-									: settings['[Render.13]']?.GFXPresetLevel === 3
-									? 1
-									: settings['[Render.13]']?.GFXPresetLevel === 2
-									? 1
-									: 0,
+							value: LocalReflections,
 							section: '[Render.13]',
 							key: 'LocalReflections',
 						},
@@ -367,6 +279,10 @@
 		},
 	] satisfies SettingGroup[];
 
+	/**
+	 * Update settings when a setting is changed
+	 * @param event
+	 */
 	function onChange(event: CustomEvent) {
 		if (event.detail.setting.section && event.detail.setting.key) {
 			settingsStore.updateSetting(

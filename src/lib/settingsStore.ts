@@ -61,7 +61,7 @@ function createSettingsStore() {
 					value === 5 ? 16 : value === 4 ? 16 : value === 3 ? 8 : value === 2 ? 4 : 1;
 				newSettings['[Render.13]'].ModelQuality =
 					value === 5 ? 4 : value === 4 ? 3 : value === 3 ? 2 : 1;
-				newSettings['[Render.13]'].PhysicsQuality = value === 5 ? 2 : 1;
+				// newSettings['[Render.13]'].PhysicsQuality = value === 5 ? 2 : 1;
 				newSettings['[Render.13]'].RefractionDetail = value >= 3 ? 2 : value === 2 ? 1 : 0;
 				newSettings['[Render.13]'].ShaderQuality = value >= 3 ? 3 : value;
 				newSettings['[Render.13]'].SimpleDirectionalShadows = value >= 2 ? 0 : 1;
@@ -69,7 +69,7 @@ function createSettingsStore() {
 					value === 5 ? 3 : value === 4 ? 2 : value >= 2 ? 1 : 0;
 				newSettings['[Render.13]'].SSQuality = 0;
 				newSettings['[Render.13]'].TextureDetail = 3;
-				newSettings['[Render.13]'].WaterCombineCascades = value >= 4 ? 1 : 0;
+				// newSettings['[Render.13]'].WaterCombineCascades = value >= 4 ? 1 : 0;
 			} else if (setting === 'MaxAnisotropy') {
 				newSettings['[Render.13]'].AnisotropicFiltering = value >= 2 ? 1 : 0;
 				newSettings['[Render.13]'].MaxEffectsAnisotropy =

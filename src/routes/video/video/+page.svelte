@@ -40,7 +40,7 @@
 							value: 1,
 						},
 					],
-					value: settings['[Render.13]']?.WindowMode ?? 1,
+					value: settings['[Render.13]']?.WindowMode ?? 0,
 					section: '[Render.13]',
 					key: 'WindowMode',
 				},

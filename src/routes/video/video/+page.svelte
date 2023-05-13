@@ -66,6 +66,7 @@
 							mode.height === settings['[Render.13]']?.FullScreenHeight &&
 							mode.refresh_rate === settings['[Render.13]']?.FullScreenRefresh
 					),
+					hidden: settings['[Render.13]']?.WindowMode !== 0,
 				},
 				{
 					name: 'Field of View',

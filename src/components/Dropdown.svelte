@@ -51,7 +51,7 @@
 	</div>
 
 	{#if isOpen}
-		<div class="dropdown-options bg-white border-2 border-slate-800">
+		<div class="dropdown-options bg-white border-2 border-slate-800 max-h-[300px] overflow-y-auto">
 			<ul>
 				{#each setting.options as option}
 					<!-- svelte-ignore a11y-click-events-have-key-events -->

@@ -1,12 +1,19 @@
 <script lang="ts">
+	import type { SettingGroup } from '$types/SettingGroup';
+	import type { Settings } from '../../../schema/SettingsSchema';
+	import type { VideoMode } from '$types/VideoMode';
+	import { invoke } from '@tauri-apps/api/tauri';
 	import { onDestroy } from 'svelte';
 	import { settingsStore } from '$lib/settingsStore';
 	import { SettingTypes } from '$types/SettingType';
 	import SettingsPage from '$components/SettingsPage.svelte';
-	import type { SettingGroup } from '$types/SettingGroup';
-	import type { Settings } from '../../../schema/SettingsSchema';
 
 	let settings: Settings;
+	let videoModes: VideoMode[] = [];
+
+	invoke<VideoMode[]>('get_video_modes').then((result) => {
+		videoModes = result;
+	});
 
 	const unsubscribe = settingsStore.subscribe((value) => (settings = value));
 
@@ -47,9 +54,18 @@
 				{
 					name: 'Resolution',
 					type: SettingTypes.Dropdown,
-					options: [{ name: '1920 x 1080', value: 0 }],
-					value: 0,
-					disabled: true,
+					options: videoModes.length
+						? videoModes.map((mode, index) => ({
+								name: `${mode.width} X ${mode.height} (${mode.refresh_rate})`,
+								value: index,
+						  }))
+						: [{ name: 'Loading...', value: 0 }],
+					value: videoModes.findIndex(
+						(mode) =>
+							mode.width === settings['[Render.13]']?.FullScreenWidth &&
+							mode.height === settings['[Render.13]']?.FullScreenHeight &&
+							mode.refresh_rate === settings['[Render.13]']?.FullScreenRefresh
+					),
 				},
 				{
 					name: 'Field of View',
@@ -230,6 +246,28 @@
 				event.detail.setting.section,
 				event.detail.setting.key,
 				event.detail.value
+			);
+		} else if (event.detail.setting.name === 'Resolution') {
+			const option = videoModes.at(event.detail.value);
+
+			if (!option) return;
+
+			settingsStore.updateSetting(
+				'[Render.13]',
+				'FullScreenWidth' as keyof (typeof settings)['[Render.13]'],
+				option.width
+			);
+
+			settingsStore.updateSetting(
+				'[Render.13]',
+				'FullScreenHeight' as keyof (typeof settings)['[Render.13]'],
+				option.height
+			);
+
+			settingsStore.updateSetting(
+				'[Render.13]',
+				'FullScreenRefresh' as keyof (typeof settings)['[Render.13]'],
+				option.refresh_rate
 			);
 		}
 	}

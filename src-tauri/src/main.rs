@@ -4,10 +4,61 @@
 )]
 
 use directories::UserDirs;
-use std::fs;
+use serde::Serialize;
+use std::{fs, sync::Mutex};
 use tauri::Manager;
+use winit::event_loop::EventLoop;
+
+#[derive(Serialize, Clone)]
+struct VideoMode {
+    width: u32,
+    height: u32,
+    refresh_rate: u32,
+}
+
+type VideoModes = Vec<VideoMode>;
+
+struct AvailableVideoModes(Mutex<VideoModes>);
 
 fn main() {
+    let mut video_modes = VideoModes::new();
+    let event_loop = EventLoop::new();
+    let monitor = match event_loop.primary_monitor() {
+        Some(monitor) => monitor,
+        None => {
+            println!("No primary monitor detected.");
+            return;
+        }
+    };
+
+    for mode in monitor.video_modes() {
+        if video_modes.iter().any(|m| {
+            m.width == mode.size().width
+                && m.height == mode.size().height
+                && m.refresh_rate == mode.refresh_rate_millihertz() / 1000
+        }) {
+            continue;
+        }
+
+        video_modes.push(VideoMode {
+            width: mode.size().width,
+            height: mode.size().height,
+            refresh_rate: mode.refresh_rate_millihertz() / 1000,
+        });
+    }
+
+    video_modes.sort_by(|a, b| {
+        if a.width == b.width {
+            if a.height == b.height {
+                a.refresh_rate.cmp(&b.refresh_rate)
+            } else {
+                a.height.cmp(&b.height)
+            }
+        } else {
+            a.width.cmp(&b.width)
+        }
+    });
+
     tauri::Builder::default()
         .setup(|app| {
             #[cfg(debug_assertions)] // only include this code on debug builds
@@ -18,7 +69,12 @@ fn main() {
             }
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![get_settings, write_settings])
+        .manage(AvailableVideoModes(Mutex::new(video_modes)))
+        .invoke_handler(tauri::generate_handler![
+            get_settings,
+            write_settings,
+            get_video_modes
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -65,4 +121,9 @@ fn write_settings(settings: String) {
 
     // Write the settings file
     fs::write(&settings_file, settings).expect("Failed to write settings file");
+}
+
+#[tauri::command]
+fn get_video_modes(state: tauri::State<AvailableVideoModes>) -> Vec<VideoMode> {
+    state.0.lock().unwrap().clone()
 }

@@ -6,7 +6,7 @@ A simple GUI that allows you to edit Overwatch 2 settings on Apple Silicon Macs.
 
 ## Installation
 
-1. Download the latest release from the [releases page](https://github.com/Marqasa/overwatch-settings/releases).
+1. Download the latest DMG from the [releases page](https://github.com/Marqasa/overwatch-settings/releases).
 2. Copy the application to your Applications folder.
 3. Open the Terminal and run the following command:
 

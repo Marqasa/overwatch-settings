@@ -86,8 +86,10 @@ export const SettingsSchema = z.object({
 	'[Sound.3]': z
 		.object({
 			AudioMix: z.coerce.number().optional(),
+			DolbyAtmosHeadphone: z.coerce.number().optional(),
 			MasterVolume: z.coerce.number().optional(),
 			MusicVolume: z.coerce.number().optional(),
+			PlaybackDeviceID: z.string().optional(),
 			SFXVolume: z.coerce.number().optional(),
 			VoiceVolume: z.coerce.number().optional(),
 		})

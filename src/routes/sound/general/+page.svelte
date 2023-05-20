@@ -1,17 +1,16 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
+	import type { SettingGroup } from '$types/SettingGroup';
 	import { settingsStore } from '$lib/settingsStore';
 	import { SettingTypes } from '$types/SettingType';
 	import SettingsPage from '$components/SettingsPage.svelte';
-	import type { SettingGroup } from '$types/SettingGroup';
-	import type { Settings } from '../../../schema/SettingsSchema';
 
-	let settings: Settings;
+	// Default to an empty object
+	$: Sound = $settingsStore['[Sound.3]'] ?? {};
 
-	const unsubscribe = settingsStore.subscribe((value) => (settings = value));
+	// Desctructure settings and assign defaults
+	$: ({ MasterVolume = 100, SFXVolume = 100, MusicVolume = 100, VoiceVolume = 100 } = Sound);
 
-	onDestroy(unsubscribe);
-
+	// Create the settings groups
 	$: settingGroups = [
 		{
 			name: 'Volume',
@@ -22,7 +21,7 @@
 					min: 0,
 					max: 100,
 					decimalPlaces: 0,
-					value: settings['[Sound.3]']?.MasterVolume ?? 100,
+					value: MasterVolume,
 					section: '[Sound.3]',
 					key: 'MasterVolume',
 					children: [
@@ -32,7 +31,7 @@
 							min: 0,
 							max: 100,
 							decimalPlaces: 0,
-							value: settings['[Sound.3]']?.SFXVolume ?? 100,
+							value: SFXVolume,
 							section: '[Sound.3]',
 							key: 'SFXVolume',
 						},
@@ -42,7 +41,7 @@
 							min: 0,
 							max: 100,
 							decimalPlaces: 0,
-							value: settings['[Sound.3]']?.MusicVolume ?? 100,
+							value: MusicVolume,
 							section: '[Sound.3]',
 							key: 'MusicVolume',
 						},
@@ -52,7 +51,7 @@
 							min: 0,
 							max: 100,
 							decimalPlaces: 0,
-							value: settings['[Sound.3]']?.VoiceVolume ?? 100,
+							value: VoiceVolume,
 							section: '[Sound.3]',
 							key: 'VoiceVolume',
 						},

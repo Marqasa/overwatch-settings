@@ -8,7 +8,14 @@
 	$: Sound = $settingsStore['[Sound.3]'] ?? {};
 
 	// Desctructure settings and assign defaults
-	$: ({ MasterVolume = 100, SFXVolume = 100, MusicVolume = 100, VoiceVolume = 100 } = Sound);
+	$: ({
+		AudioMix = 0,
+		DolbyAtmosHeadphone = 0,
+		MasterVolume = 100,
+		MusicVolume = 100,
+		SFXVolume = 100,
+		VoiceVolume = 100,
+	} = Sound);
 
 	// Create the settings groups
 	$: settingGroups = [
@@ -56,6 +63,37 @@
 							key: 'VoiceVolume',
 						},
 					],
+				},
+			],
+		},
+		{
+			name: 'Device',
+			settings: [
+				{
+					name: 'Spatial Audio',
+					type: SettingTypes.Dropdown,
+					value: DolbyAtmosHeadphone,
+					options: [
+						{ name: 'System Settings', value: 0 },
+						{ name: 'Dolby Atmos For Headphones', value: 1 },
+					],
+					section: '[Sound.3]',
+					key: 'DolbyAtmosHeadphone',
+				},
+				{
+					name: 'Audio Mix',
+					type: SettingTypes.Dropdown,
+					value: AudioMix,
+					options: [
+						{ name: 'Headphones', value: 3 },
+						{ name: 'Home Theater', value: 1 },
+						{ name: 'Night Mode', value: 6 },
+						{ name: 'Studio Reference', value: 0 },
+						{ name: 'Soundbar', value: 4 },
+						{ name: 'Television', value: 2 },
+					],
+					section: '[Sound.3]',
+					key: 'AudioMix',
 				},
 			],
 		},
